@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import Form from './Loans';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const Jsx = () =>{
+  const[form, cambiarForm] = useState(false);
   return(
     <>
-      <h1>Hola mundo</h1>
+      {form === true ? (
+        <>
+          <h1>hola este es un lugar</h1>
+        </>
+      ) : (
+        <>
+
+        </>
+      )}
     </>
   );
 };
