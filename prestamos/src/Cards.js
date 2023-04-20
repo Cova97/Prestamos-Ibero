@@ -9,7 +9,7 @@ const Card = ({formData}) => {
     return isVisible ?(
         <>
             
-            <div class="card">
+            <div className="card">
                 <h2>Nombre: {name}</h2>
                 <h2>Apellido: {lastname}</h2>
                 <p>ID: {id}</p>

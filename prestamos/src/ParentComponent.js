@@ -5,9 +5,9 @@ import Card from "./Card";
 const ParentComponent = () => {
     const [formData, setFormData] = useState({});
 
-    const handleFormSubmit = (data) => {
+    const handleFormSubmit = ((data) => {
     setFormData(data);
-    };
+    }, []);
 
     return (
     <>

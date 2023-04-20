@@ -25,7 +25,7 @@ const Form = (props) => {
     const onSubmit = (e) =>{
         console.log(e);
         e.preventDefault();
-        if(id && name && lastname && items != null){
+        if(id && name && lastname && items !== null){
             alert("Nuevo Usuario Deudor")
             props.cambiarForm(true)
         }
