@@ -4,10 +4,18 @@ import './index.css';
 import Form from './Loans';
 import Card from './Cards';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const Jsx = () =>{
   const[form, cambiarForm] = useState(true);
+  const [users, setUsers] = useState([]);
+  
+  const addNewUser = (user) => {
+    setUsers([...users, user]);
+    cambiarForm(true);
+  }
+
   return(
     <>
       {form === true ? (
@@ -16,15 +24,17 @@ const Jsx = () =>{
             <h1>Alumnos con materiales prestados</h1>
           </div>
           <div>
-            <Card/>
+            {users.map((user, index) => (
+                <Card key={index} id={user.id} name={user.name} lastname={user.lastname} items={user.items} />
+              ))}
           </div>
           <div>
-          <button class="btn btn-info" onClick={()=> cambiarForm(false)} >Nuevo Prestamo</button>
+            <button class="btn btn-info" onClick={()=> cambiarForm(false)} >Nuevo Prestamo</button>
           </div>
         </>
       ) : (
         <>
-          <Form cambiarForm={cambiarForm}/>
+          <Form cambiarForm={addNewUser}/>
         </>
       )}
     </>
@@ -34,7 +44,5 @@ const Jsx = () =>{
 root.render(<Jsx/>)
 
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 

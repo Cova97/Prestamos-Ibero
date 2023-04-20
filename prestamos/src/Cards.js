@@ -1,17 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 
-const Card = (promps) => {
-    return(
+const Card = ({formData}) => {
+    const { id, name, lastname, items } = formData;
+    
+    const [isVisible, setIsVisible] = useState(true);
+    const handleDelete = () => {setIsVisible(false);};
+    
+    return isVisible ?(
         <>
+            
             <div class="card">
-                <h2>Nombre: Aldo</h2>
-                <h2>Apellido: Cova</h2>
-                <p>ID: 186223</p>
-                <p>Materiales: USB, Telcado</p>
-                <button class="btn" onclick="eliminarCard(this.parentNode)">Eliminar</button>
+                <h2>Nombre: {name}</h2>
+                <h2>Apellido: {lastname}</h2>
+                <p>ID: {id}</p>
+                <p>Materiales: {items}</p>
+                <button type="button" class="btn btn-warning" onClick={handleDelete}>Eliminar</button>
             </div>
         </>
-    );
+    ) : null
 };
 
 export default Card;
