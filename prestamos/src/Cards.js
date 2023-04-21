@@ -1,23 +1,21 @@
 import React, {useState} from "react";
 
-const Card = ({formData}) => {
-    const { id, name, lastname, items } = formData;
+const Card = () => {
     
     const [isVisible, setIsVisible] = useState(true);
     const handleDelete = () => {setIsVisible(false);};
     
     return isVisible ?(
         <>
-            
             <div className="card">
-                <h2>Nombre: {name}</h2>
-                <h2>Apellido: {lastname}</h2>
-                <p>ID: {id}</p>
-                <p>Materiales: {items}</p>
+                <h2>Nombre: </h2>
+                <h2>Apellido: </h2>
+                <p>ID: </p>
+                <p>Materiales: </p>
                 <button type="button" class="btn btn-warning" onClick={handleDelete}>Eliminar</button>
             </div>
         </>
-    ) : null
+    ) : null;
 };
 
 export default Card;
