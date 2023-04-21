@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import {db} from './Firebase'
+import {collection, addDoc, Timestamp} from 'firebase/firestore'
 
 const Form = (props) => {
     const[id, setId] = useState("")

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Form from './Loans';
 import Card from './Cards';
+import './Firebase';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
