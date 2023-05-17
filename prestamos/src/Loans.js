@@ -1,13 +1,31 @@
-import React, {useState} from "react";
-import {db} from './Firebase'
-import {collection, addDoc, Timestamp} from 'firebase/firestore'
+import React, {useState, useEffect} from "react";
+import {db} from './Firebase';
+import { addDoc, Timestamp, onSnapshot, collection} from 'firebase/firestore';
 
 const Form = (props) => {
     const[id, setId] = useState("")
     const[name, setName] = useState("")
     const[lastname, setLastname] = useState("")
-    const[items, setItems] = useState("")
+    const[items, setItems] = useState([])
+    const[loans, setLoans] = useState([]);
     
+    useEffect(() => {
+        onSnapshot(
+            collection(db, 'loans'),
+            (snapshot) => {
+                
+                const arr = snapshot.docs.map((doc) => {
+                    return{...doc.data(), id: doc.id}
+                })
+                console.log(arr)
+                setLoans(arr);
+            },
+            (error) =>{
+                console.log(error)
+            }
+        )
+    }, []);
+
     const onChange = (e) => {
         console.log(e.target.name);
         if(e.target.name === "id"){
@@ -24,17 +42,24 @@ const Form = (props) => {
         }
     };
 
-    const onSubmit = (e) =>{
-        console.log(e);
+    const onSubmit = async (e) =>{
         e.preventDefault();
-        if(id && name && lastname && items !== null){
-            alert("Nuevo Usuario Deudor")
-            props.cambiarForm(true)
+        try {
+            await addDoc(collection(db, 'loads'), {
+                id:id,
+                name:name,
+                lastname:lastname,
+                items:items
+            });
+        } catch(error){
+            console.log("hubo un error")
+            console.log(error)
         }
-        else{
-            alert("Faltan datos para aceptar el prestamos")
-        }
-    };
+        setId("");
+        setName("");
+        setLastname("");
+        setItems("");
+    }
 
     return(
         <>
@@ -80,7 +105,7 @@ const Form = (props) => {
                         onChange={onChange}></textarea>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-success">Aceptar</button>
+                    <button type="submit" class="btn btn-success">Aceptar Préstamo</button>
                 </div>
             </form>
         </>
@@ -88,3 +113,28 @@ const Form = (props) => {
 };
 
 export default Form;
+
+/*
+try {
+            console.log(e);
+            e.preventDefault();
+            if(id && name && lastname && items !== null){
+                const docRef = await addDoc(collection(db, "loans"), {
+                    id: id,
+                    name: name,
+                    lastname: lastname,
+                    items: items,
+                    timestamp: Timestamp.fromDate(new Date())
+                });
+                console.log("Document written with ID: ", docRef.id);
+                alert("Nuevo Usuario Deudor")
+                props.cambiarForm(true)
+            }
+            else{
+                alert("Por favor complete todos los campos para aceptar el préstamo")
+            }
+        } catch (e) {
+            console.error("Error adding document: ", e);
+            alert("Ha ocurrido un error al enviar el formulario. Por favor inténtelo de nuevo más tarde.");
+        }
+*/

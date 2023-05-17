@@ -12,7 +12,7 @@ const Card = () => {
                 <h2>Apellido: </h2>
                 <p>ID: </p>
                 <p>Materiales: </p>
-                <button type="button" class="btn btn-warning" onClick={handleDelete}>Eliminar</button>
+                <button type="button" className="btn btn-warning" onClick={handleDelete}>Eliminar</button>
             </div>
         </>
     ) : null;
